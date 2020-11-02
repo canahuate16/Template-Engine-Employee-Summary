@@ -14,9 +14,6 @@ util.promisify(fs.writeFile);
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-
-
-
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
@@ -36,51 +33,72 @@ util.promisify(fs.writeFile);
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
 async function start() {
 
     let teamHTML = "";
     let teamSize = 1;
-    let teamMember = [];
 
-
-
-    await inquirer.prompt([
+    await inquirer.prompt(
         {
-            type: "input",
-            name: "name",
-            message: "What is your employee's name?"
-        },
-        {
-            type: "input",
-            name: "id",
-            message: "What is the employee's ID"
-        },
-        {
-            type: "input",
-            name: "email",
-            message: "What is the employee's email address?"
-        },
-        {
-            type: "input",
-            name: "github",
-            message: "What is your employee's github?"
+            type: "number",
+            message: "How many people are in your team?",
+            name: "teamNumber"
         }
-          
-    ])
-        
+    )
         .then((data) => {
-            const employee = [{
-            name = data.name,
-            id = data.id,
-            email = data.email,
-            github = data.github,
-            
-            }]
-        teamMember.push (employee)
-            
-        })
+            teamSize = data.teamNumber + 1;
+        });
+        
+    for (i = 1; i < teamSize; i++){
+        let name;
+        let id;
+        let title;
+        let email;
+
     
+    
+        await inquirer.prompt([
+            {
+                type: "input",
+                message: `What is employee (${i})'s name?`,
+                name: "name"
+            },
+            {
+                type: "input",
+                message: `What is the employee (${i})'s id?`,
+                name: "id"
+            },
+            {
+                type: "input",
+                message: `What is the employee (${i})'s Email?`,
+                name: "email"
+            },
+            {
+                type: "list",
+                message: `what the employee (${i})'s title?`,
+                name: "title",
+                choices: ["Engineer", "Intern", "Manager"]
+            }
+        ])
+            .then((data) => {
+                name = data.name;
+                id = data.id;
+                title = data.title;
+                email = data.email;
+            });
+        
+    }
     render(Manager, Engineer, Intern, Employee)
     
+    promptUser()
+        .then((data) => {
+            name = data.name;
+            id = data.id;
+            email = data.email;
+            github = data.github;
+            
+        })
+   
 }
-start();
+start()
