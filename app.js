@@ -1,15 +1,17 @@
-const Manager = require("./Develop/lib/Manager");
-const Engineer = require("./Develop/lib/Engineer");
-const Intern = require("./Develop/lib/Intern");
+
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-const render = require("./Develop/lib/htmlRenderer");
-const Employee = require("./Develop/lib/Employee");
+const render = require("./lib/htmlRenderer");
+const Employee = require("./lib/Employee");
 const util = require("util");
 util.promisify(fs.writeFile);
+
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -34,45 +36,76 @@ util.promisify(fs.writeFile);
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+let teamHTML = "";
+let teamMembers = [];
+
 function start() {
 
-    let teamHTML = "";
-    let teamSize = 1;
-    let teamMember = [];
-
-
-
- inquirer.prompt([
+    inquirer.prompt([
         {
             type: "input",
             name: "name",
-            message: "What is your employee's name?"
+            message: "What is the manager's name?"
         },
-        {
+
+         {
             type: "input",
             name: "id",
-            message: "What is the employee's ID"
-        },
-        {
+            message: "What is the manager's id?"
+         },
+
+         {
             type: "input",
             name: "email",
-            message: "What is the employee's email address?"
+            message: "What is the manager's email?"
         },
+
         {
             type: "input",
-            name: "github",
-            message: "What is your employee's github?"
+            name: "officeNumber",
+            message: "What is the manager's office number?"
         }
-          
+        
     ])
-        
-     .then((data) => {
-            console.log (data)
-          const Bob = new Engineer(data.name, data.id, data.email, data.github);
-        // teamMember.push (employee)
-         console.log(Bob);
+
+        .then((managerData) => {
+            console.log (managerData);
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "name",
+                    message: "What is your employee's name?"
+                },
+                {
+                    type: "input",
+                    name: "id",
+                    message: "What is the employee's ID"
+                },
+                {
+                    type: "input",
+                    name: "email",
+                    message: "What is the employee's email address?"
+                },
+                {
+                    type: "input",
+                    name: "github",
+                    message: "What is your employee's github?"
+                }
+
+            ])
+
+                .then((data) => {
+                    console.log (data)
+                    const newEmployee = new Engineer(data.name, data.id, data.email, data.github);
+                    // teamMember.push (employee)
+                    //  console.log(employees);
+                    teamMembers.push(newEmployee)
+                    console.log(teamMembers);
+                })
         })
-        
+
+
+
 }
 
 // render(Engineer)
