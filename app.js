@@ -15,8 +15,6 @@ util.promisify(fs.writeFile);
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-
-
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
@@ -36,7 +34,7 @@ util.promisify(fs.writeFile);
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
-async function start() {
+function start() {
 
     let teamHTML = "";
     let teamSize = 1;
@@ -44,7 +42,7 @@ async function start() {
 
 
 
-    await inquirer.prompt([
+ inquirer.prompt([
         {
             type: "input",
             name: "name",
@@ -68,19 +66,14 @@ async function start() {
           
     ])
         
-        .then((data) => {
-            const employee = [{
-            name = data.name,
-            id = data.id,
-            email = data.email,
-            github = data.github,
-            
-            }]
-        teamMember.push (employee)
-            
+     .then((data) => {
+            console.log (data)
+          const Bob = new Engineer(data.name, data.id, data.email, data.github);
+        // teamMember.push (employee)
+         console.log(Bob);
         })
-    
-    render(Manager, Engineer, Intern, Employee)
-    
+        
 }
+
+// render(Engineer)
 start();
