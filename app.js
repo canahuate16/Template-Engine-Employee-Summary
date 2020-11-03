@@ -70,6 +70,9 @@ function start() {
 
         .then((managerData) => {
             console.log(managerData);
+            const manager = new Manager(managerData.name, managerData.id, managerData.email, managerData.officeNumber);
+            teamMembers.push (manager);
+    
             inquirer.prompt([
                 {
                     type: "input",
