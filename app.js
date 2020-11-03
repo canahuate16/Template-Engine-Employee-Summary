@@ -36,9 +36,8 @@ util.promisify(fs.writeFile);
 // for the provided `render` function to work! ```
 function start() {
 
-    let teamHTML = "";
-    let teamSize = 1;
-    let teamMember = [];
+     let teamHTML = "";
+    let teamMembers = [];
 
 
 
@@ -67,10 +66,11 @@ function start() {
     ])
         
      .then((data) => {
-            console.log (data)
-          const Bob = new Engineer(data.name, data.id, data.email, data.github);
+           const newEmployee = new Engineer(data.name, data.id, data.email, data.github);
         // teamMember.push (employee)
-         console.log(Bob);
+        //  console.log(employees);
+         teamMembers.push(newEmployee)
+         console.log(teamMembers);
         })
         
 }
