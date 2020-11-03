@@ -48,13 +48,13 @@ function start() {
             message: "What is the manager's name?"
         },
 
-         {
+        {
             type: "input",
             name: "id",
             message: "What is the manager's id?"
-         },
+        },
 
-         {
+        {
             type: "input",
             name: "email",
             message: "What is the manager's email?"
@@ -65,11 +65,11 @@ function start() {
             name: "officeNumber",
             message: "What is the manager's office number?"
         }
-        
+
     ])
 
         .then((managerData) => {
-            console.log (managerData);
+            console.log(managerData);
             inquirer.prompt([
                 {
                     type: "input",
@@ -95,7 +95,7 @@ function start() {
             ])
 
                 .then((data) => {
-                    console.log (data)
+                    console.log(data)
                     const newEmployee = new Engineer(data.name, data.id, data.email, data.github);
                     // teamMember.push (employee)
                     //  console.log(employees);
