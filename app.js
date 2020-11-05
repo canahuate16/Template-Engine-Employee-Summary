@@ -147,12 +147,12 @@ function createIntern() {
             teamMembers.push(addIntern)
             console.log(teamMembers);
             selectMember()
-            // makeTeam();
+            
         })
 }
 
 function writeHTML() {
-    fs.writeFile("index.html", render(teamMembers), function (err) {
+    fs.writeFile("team.html", render(teamMembers), function (err) {
         if (err) {
             return console.log(err);
         }
