@@ -14,6 +14,9 @@
 ## Project Description
 * This is a command line application that will prompt the user for information about the team manager and then information about the team members. The user can input any number of team members, and tthey may be a mix of engineers and interns. Once the user has provided all the members, the application will generate an HTML file that niceley displays and formats the team roster.
 
+## Image
+<img width="1427" alt="10-OOP-homework-demo-1" src="https://user-images.githubusercontent.com/15930792/98199822-249f2980-1efa-11eb-8a01-5ed2f2faf3c2.png">
+
 ## Installation Instructions
 * inquirer and jest
 
