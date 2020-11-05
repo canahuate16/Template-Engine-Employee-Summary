@@ -72,99 +72,121 @@ function start() {
             console.log(managerData);
             const manager = new Manager(managerData.name, managerData.id, managerData.email, managerData.officeNumber);
             teamMembers.push(manager);
+            selectMember();
 
-            //asks to select a new employee type
-            inquirer.prompt([
-                {
-                    type: "checkbox",
-                    name: "employeeType",
-                    message: "What type of employee are you adding?",
-                    choices: [
-                        'Engineer',
-                        'Intern',
-                        'Manager'
-                    ]
-                }
+        })
+}
+//asks to select a new employee type
 
-            ])
-            .then ((answer) => {
-                if (answer.type === 'Engineer') {
-                    createEngineer()
-                }else if ( answer.type === 'Intern') {
-                    createIntern()
+function selectMember() {
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "employeeType",
+            message: "What type of employee are you adding?",
+            choices: [
+                'Engineer',
+                'Intern',
+                'Manager',
+                'Submit'
 
-                }
-                
-            })
-            
-            function createEngineer () {
-            inquirer.prompt([
-                {
-                    type: "input",
-                    name: "name",
-                    message: "What is your engineer's name?"
-                },
-                {
-                    type: "input",
-                    name: "id",
-                    message: "What is the engineer's ID"
-                },
-                {
-                    type: "input",
-                    name: "email",
-                    message: "What is the engineer's email address?"
-                },
-                {
-                    type: "input",
-                    name: "github",
-                    message: "What is your engineer's github?"
-                }
-            
-            ])
+            ]
+        }
 
-                .then((data) => {
-                    console.log(data)
-                    const newEmployee = new Engineer(data.name, data.id, data.email, data.github);
-                    // teamMember.push (employee)
-                    //  console.log(employees);
-                    teamMembers.push(newEmployee)
-                    console.log(teamMembers);
-                })
-            }})
+    ])
+        .then((answer) => {
+            if (answer.employeeType === 'Engineer') {
+                createEngineer()
+            } else if (answer.employeeType === 'Intern') {
+                createIntern()
 
-                function createIntern () {
-                    inquirer.prompt ([
-                        {
-                            type: "input",
-                            name: "name",
-                            message: "What is your intern's name?"
-                        },
-                        {
-                            type: "input",
-                            name: "id",
-                            message: "What is the intern's ID"
-                        },
-                        {
-                            type: "input",
-                            name: "email",
-                            message: "What is the intern's email address?"
-                        },
-                        {
-                            type: "input",
-                            name: "school",
-                            message: "What is your intern's school?"
-                        }
-                        
-                        
-                    ])
-                    .then ((data)=> {
-                        const addIntern = new Intern (data.name, data.id, data.email,data.school);
-                        teamMembers.push (addIntern)
-                    })
-                }
-        
+            } else if (answer.employeeType === 'Manager') {
+                start()
 
+            } else {
+                render(teamMembers)
+            }
+
+        })
+}
+function createEngineer() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your engineer's name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the engineer's ID"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the engineer's email address?"
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "What is your engineer's github?"
+        }
+
+    ])
+
+        .then((data) => {
+            console.log(data)
+            const newEmployee = new Engineer(data.name, data.id, data.email, data.github);
+            // teamMember.push (employee)
+            //  console.log(employees);
+            teamMembers.push(newEmployee)
+            console.log(teamMembers);
+            // makeTeam()
+            selectMember()
+        })
 }
 
-render(teamMembers)
+function createIntern() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your intern's name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the intern's ID"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the intern's email address?"
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "What is your intern's school?"
+        }
+
+
+    ])
+        .then((data) => {
+            const addIntern = new Intern(data.name, data.id, data.email, data.school);
+            teamMembers.push(addIntern)
+            console.log(teamMembers);
+            selectMember()
+            // makeTeam();
+        })
+}
+
+
+
+// function makeTeam() {
+//     if (!fs.existsSync(OUTPUT_DIR)) {
+//         fs.mkdirSync(OUTPUT_DIR)
+//       }
+//  }
+//  fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
+
 start();
